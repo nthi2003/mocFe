@@ -38,7 +38,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await axios.post("/Account/RegisterUser", {
+     await axios.post("/Account/RegisterUser", {
         firstName,
         lastName,
         email,
@@ -54,9 +54,8 @@ export default function RegisterPage() {
       });
 
       router.push("/login");
-    } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Đăng ký thất bại");
-      console.error(err);
+    } catch {
+      toast.error("Đăng ký thất bại");
     }
   };
 

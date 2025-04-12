@@ -35,15 +35,14 @@ export default function LoginPage() {
     
                 toast.success("Đăng nhập thành công!");
     
-                // Điều hướng sau đăng nhập
+       
                 router.push("/Dashboard");
             } else {
                 toast.error("Token không tồn tại!");
             }
-        } catch (err: any) {
-            const errorMessage = err?.response?.data?.message || "Đăng nhập thất bại";
-            toast.error(errorMessage);
-            console.error("Đăng nhập lỗi:", err?.response || err);
+        } catch {
+
+            toast.error("Đăng nhập thất bại");
         }
     };
     
