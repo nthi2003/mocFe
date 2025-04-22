@@ -1,7 +1,8 @@
 'use client'
 
-import Header from "@/app/components/header"
-import { Sidebar } from "@/app/components/sidebar"
+import Header from "../components/header/LandingHeader"
+import { Sidebar } from "../components/slider/sidebar"
+
 
 export default function Home() {
 

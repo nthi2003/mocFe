@@ -1,7 +1,6 @@
 'use client';
 
-import Header from "@/app/components/header";
-import { Sidebar } from "@/app/components/sidebar";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -9,6 +8,8 @@ import { Search, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import axios from "@/lib/axios";
+import { Sidebar } from "../components/slider/sidebar";
+import Header from "../components/header/LandingHeader";
 
 interface Category {
   id: number;
@@ -26,7 +27,7 @@ export default function Menu() {
 
         const response = await axios.get("/Category");
         setCategories(response.data.data);
-      } catch  {
+      } catch {
         toast.error("Có lỗi không lấy được API");
         setError("Không thể tải danh mục. Vui lòng thử lại sau.");
       } finally {
