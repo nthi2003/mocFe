@@ -104,7 +104,7 @@ export default function Menu() {
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <Card className="overflow-hidden">
                           <div className="aspect-video w-full overflow-hidden">
-                           <img src="" alt="" />
+                           {/* <img src="" alt="" /> */}
                           </div>
                           <CardContent className="p-4">
                           <div className="flex justify-between items-start mb-2">
