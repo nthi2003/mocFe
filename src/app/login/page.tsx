@@ -10,7 +10,8 @@ import { Label } from "@/components/ui/label";
 
 import { Coffee } from "lucide-react";
 import Link from "next/link";
-import axios from "@/lib/axios";
+import { api } from "@/lib/axios";
+
 
 export default function LoginPage() {
     const router = useRouter();
@@ -21,28 +22,25 @@ export default function LoginPage() {
         e.preventDefault();
     
         try {
-            const response = await axios.post("/Account/Authentication", {
+            const response = await api.post("/Account/Authentication", {
                 email,
                 password,
             });
-    
+        
             const { data } = response.data;
-    
+        
             if (data?.jwToken) {
-                // Lưu vào localStorage (hoặc bạn có thể dùng cookie nếu muốn bảo mật hơn)
                 localStorage.setItem("accessToken", data.jwToken);
                 localStorage.setItem("user", JSON.stringify(data));
-    
+        
                 toast.success("Đăng nhập thành công!");
-    
-       
                 router.push("/Dashboard");
             } else {
                 toast.error("Token không tồn tại!");
             }
-        } catch {
-
-            toast.error("Đăng nhập thất bại");
+        } catch (error: any) {
+            const message = error?.response?.data?.message || "Đăng nhập thất bại";
+            toast.error(message);
         }
     };
     
