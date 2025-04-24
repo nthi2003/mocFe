@@ -105,6 +105,7 @@ export default function Menu() {
                         <Card className="overflow-hidden">
                           <div className="aspect-video w-full overflow-hidden">
                            {/* <img src="" alt="" /> */}
+                           2
                           </div>
                           <CardContent className="p-4">
                           <div className="flex justify-between items-start mb-2">
