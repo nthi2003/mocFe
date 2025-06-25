@@ -1,12 +1,11 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-// Create axios instance
+
 const axiosInstance = axios.create({
-  baseURL: "https://localhost:7097/api",
+  baseURL: "http://mocfb.runasp.net/api",
 });
 
-// Helper functions
 const isClient = () => typeof window !== "undefined";
 
 const clearAuthData = () => {
@@ -40,7 +39,7 @@ if (isClient()) {
   }
 }
 
-// Request interceptor
+
 axiosInstance.interceptors.request.use(
   (config) => {
     if (isClient()) {

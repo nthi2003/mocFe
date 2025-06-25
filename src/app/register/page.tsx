@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { Coffee } from "lucide-react";
 import Link from "next/link";
-import {api} from "@/lib/axios";
+import { api } from "@/lib/axios";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -38,7 +38,7 @@ export default function RegisterPage() {
     }
 
     try {
-     await api.post("/Account/RegisterUser", {
+      await api.post("/Account/RegisterUser", {
         firstName,
         lastName,
         email,

@@ -12,6 +12,7 @@ import { Coffee } from 'lucide-react';
 import Link from 'next/link';
 import { api } from '@/lib/axios';
 import axios from 'axios';
+import Image from 'next/image'; // ✅ Import Image
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function LoginPage() {
         localStorage.setItem('user', JSON.stringify(data));
 
         toast.success('Đăng nhập thành công!');
-        router.push('/Dashboard');
+        router.push('/');
       } else {
         toast.error('Token không tồn tại!');
       }
@@ -42,7 +43,6 @@ export default function LoginPage() {
       let message = 'Đăng nhập thất bại';
 
       if (axios.isAxiosError(error)) {
-        // Nếu là lỗi từ Axios, thử truy xuất message
         message = (error.response?.data as { message?: string })?.message || message;
       }
 
@@ -51,8 +51,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen flex">
+      <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-6 md:p-8 w-[60%]">
         <div className="w-full max-w-md space-y-6">
           <div className="flex flex-col items-center space-y-2 text-center">
             <div className="bg-primary p-2 rounded-md">
@@ -106,6 +106,15 @@ export default function LoginPage() {
             </Link>
           </div>
         </div>
+      </div>
+      <div className="w-[40%] relative h-[1050px]">
+        <Image
+          src="/images/loading.jpg"
+          alt="Login Banner"
+          layout="fill"
+          objectFit="cover"
+          priority
+        />
       </div>
     </div>
   );
