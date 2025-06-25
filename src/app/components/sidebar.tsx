@@ -109,16 +109,26 @@ export default function Sidebar() {
                                         <ShoppingCart className="w-4 h-4" />
                                         <span>Đơn hàng</span>
                                     </div>
-                                    <div className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm cursor-pointer hover:bg-gray-100 text-gray-600">
-                                        <List className="w-4 h-4" />
-                                        <span>Danh mục</span>
-                                    </div>
+
                                     <div className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm cursor-pointer hover:bg-gray-100 text-gray-600">
                                         <Gift className="w-4 h-4" />
                                         <span>Ưu đãi</span>
                                     </div>
                                 </div>
                             )}
+                        </div>
+                        <div>
+                            <div
+                                className="flex items-center justify-between px-3 py-2 rounded-md text-sm cursor-pointer hover:bg-gray-100 text-gray-700"
+                                onClick={() => toggleExpanded("Danh mục")}
+                            >
+                                <div className="flex items-center space-x-3">
+                                    <List className="w-4 h-4" />
+                                    <Link href="/setting/category">Doanh mục</Link>
+                                </div>
+
+                            </div>
+
                         </div>
                         {/* Nguyên liệu */}
                         <div>
@@ -278,29 +288,7 @@ export default function Sidebar() {
                         </div>
                     </nav>
                 </aside>
-                {/* <main className="flex-1 p-6">
-                    <div className="flex items-center justify-between mb-6">
-                        <h1 className="text-2xl font-semibold text-gray-900">DANH MỤC CỬA HÀNG</h1>
-                        <Button className="bg-blue-600 hover:bg-blue-700">
-                            <Plus className="w-4 h-4 mr-2" />
-                            Thêm mới
-                        </Button>
-                    </div>
-                    <div className="bg-white rounded-lg border border-gray-200">
-                        <div className="grid grid-cols-3 gap-4 p-4 border-b border-gray-200 bg-gray-50">
-                            <div className="font-medium text-gray-700">Hình ảnh</div>
-                            <div className="font-medium text-gray-700">Tên danh mục</div>
-                            <div className="font-medium text-gray-700">Xử lý</div>
-                        </div>
-                        <div className="p-12 text-center text-gray-500">
-                            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                                <Store className="w-8 h-8 text-gray-400" />
-                            </div>
-                            <p>Chưa có danh mục cửa hàng nào</p>
-                            <p className="text-sm mt-1">Nhấn "Thêm mới" để tạo danh mục đầu tiên</p>
-                        </div>
-                    </div>
-                </main> */}
+
             </div>
         </div>
     )

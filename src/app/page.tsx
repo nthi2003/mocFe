@@ -3,21 +3,49 @@
 import Header from "@/app/components/header"
 import { CheckCircle2, Clock, Calendar, Contact, Timer, Settings, HandPlatter } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function Home() {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Kiểm tra token khi component được mount
+    const checkAuth = () => {
+      const token = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken')
+      if (!token) {
+        router.push('/login')
+      } else {
+        setIsLoading(false)
+      }
+    }
+
+    // Chỉ chạy kiểm tra trên client side
+    if (typeof window !== 'undefined') {
+      checkAuth()
+    }
+  }, [router])
 
   const handleNavigation = (path: string) => {
     router.push(path)
   }
 
+  // Hiển thị loading trong khi kiểm tra
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen p-4 md:p-8">
       <Header />
-      <div className="mx-auto max-w-3xl mt-3 ">
+      <div className="mx-auto max-w-3xl mt-3">
         <div className="mb-8 text-center">
           <h1 className="mb-2 text-3xl font-bold text-black-800 animate-slide-down">
-            Chúc thi một ngày làm việc hiệu quả
+            Chúc bạn một ngày làm việc hiệu quả
           </h1>
           <div className="mx-auto h-1 w-20 rounded-full animate-expand"></div>
         </div>
