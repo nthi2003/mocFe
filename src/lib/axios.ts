@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 const axiosInstance = axios.create({
-  baseURL: "http://mocfb.runasp.net/api",
+  baseURL: "https://mocbe.onrender.com/api",
 });
 
 const isClient = () => typeof window !== "undefined";
