@@ -24,7 +24,7 @@ import {
     Crown,
     MapPinPlus,
     Hash,
-
+    ToggleRight,
 } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
@@ -282,6 +282,30 @@ export default function Sidebar() {
                                         <Users className="w-4 h-4" />
                                         <span>Danh sách khách hàng</span>
                                     </div>
+
+                                </div>
+                            )}
+                        </div>
+                        <div>
+                            <div
+                                className="flex items-center justify-between px-3 py-2 rounded-md text-sm cursor-pointer hover:bg-gray-100 text-gray-700"
+                                onClick={() => toggleExpanded("Quản lí chức năng")}
+                            >
+                                <div className="flex items-center space-x-3">
+                                    <ToggleRight className="w-4 h-4" />
+                                    <span>Quản lí chức năng</span>
+                                </div>
+                                <ChevronDown
+                                    className={`w-4 h-4 transition-transform ${expandedItems["Quản lí chức năng"] ? "rotate-180" : ""}`}
+                                />
+                            </div>
+                            {expandedItems["Quản lí chức năng"] && (
+                                <div className="ml-6">
+                                    <div className="flex items-center space-x-3 px-3 py-2 rounded-md text-sm cursor-pointer hover:bg-gray-100 text-gray-600">
+                                        <List className="w-4 h-4" />
+                                        <Link href="/setting/feature">Danh sách tính  năng</Link>
+                                    </div>
+
 
                                 </div>
                             )}

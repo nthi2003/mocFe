@@ -3,7 +3,8 @@ import { jwtDecode } from "jwt-decode";
 
 
 const axiosInstance = axios.create({
-  baseURL: "https://mocbe.onrender.com/api",
+  // baseURL: "https://mocbe.onrender.com/api",
+    baseURL: "https://localhost:7097/api",
 });
 
 const isClient = () => typeof window !== "undefined";
@@ -57,7 +58,7 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {

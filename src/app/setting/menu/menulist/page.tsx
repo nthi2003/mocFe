@@ -47,16 +47,24 @@ function ImageUpload({ onFileChange }: { onFileChange: (file: File) => void }) {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {
             onFileChange(selectedFile);
-            setPreviewUrl(URL.createObjectURL(selectedFile));
+            const reader = new FileReader();
+            reader.onload = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(selectedFile);
         }
     };
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         const droppedFile = e.dataTransfer.files[0];
-        if (droppedFile) {
+        if (droppedFile && droppedFile.type.startsWith('image/')) {
             onFileChange(droppedFile);
-            setPreviewUrl(URL.createObjectURL(droppedFile));
+            const reader = new FileReader();
+            reader.onload = () => {
+                setPreviewUrl(reader.result as string);
+            };
+            reader.readAsDataURL(droppedFile);
         }
     };
 
@@ -79,18 +87,17 @@ function ImageUpload({ onFileChange }: { onFileChange: (file: File) => void }) {
                 type="file"
                 ref={fileInputRef}
                 onChange={handleFileChange}
-                accept="image/jpeg,image/png,image/gif"
+                accept="image/*"
                 className="hidden"
             />
 
             {previewUrl ? (
                 <div className="flex flex-col items-center">
                     <div className="w-40 h-40 rounded-md overflow-hidden mb-4 relative">
-                        <Image
+                        <img
                             src={previewUrl}
                             alt="Preview"
-                            fill
-                            className="object-cover"
+                            className="w-full h-full object-cover"
                         />
                     </div>
                     <p className="text-sm text-gray-500">
@@ -324,7 +331,7 @@ export default function MaterialListPage() {
                             </DialogTrigger>
                             <DialogContent className="max-h-[80vh] overflow-y-auto">
                                 <DialogHeader>
-                                    <DialogTitle>{isEditMode ? 'Edit Menu Item' : 'Add New Menu Item'}</DialogTitle>
+                                    <DialogTitle>{isEditMode ? 'Sửa thực đơn' : 'Tạo thực đơn'}</DialogTitle>
                                 </DialogHeader>
                                 <div className="space-y-4 pt-4">
                                     <div>
@@ -376,12 +383,22 @@ export default function MaterialListPage() {
                                         <ImageUpload onFileChange={handleFileChange} />
                                         {typeof formData.image === 'string' && formData.image && (
                                             <div className="mt-4 w-[100px] h-[100px] border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center overflow-hidden relative">
-                                                <Image
-                                                    src={formData.image}
-                                                    alt="preview"
-                                                    fill
-                                                    className="object-cover"
-                                                />
+                                                {formData.image.startsWith('data:') || formData.image.startsWith('blob:') ? (
+                                                    <img
+                                                        src={formData.image}
+                                                        alt="preview"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <Image
+                                                        src={formData.image}
+                                                        alt="preview"
+                                                        fill
+                                                        className="object-cover"
+                                                        sizes="100px"
+                                                        unoptimized={true}
+                                                    />
+                                                )}
                                             </div>
                                         )}
                                     </div>
@@ -430,7 +447,7 @@ export default function MaterialListPage() {
                                             variant="outline"
                                             onClick={() => setIsDialogOpen(false)}
                                         >
-                                            Cancel
+                                            Hủy
                                         </Button>
                                         <Button
                                             onClick={handleSubmit}
@@ -472,7 +489,7 @@ export default function MaterialListPage() {
                                 {loading && menu.length === 0 ? (
                                     <tr>
                                         <td colSpan={10} className="text-center py-4">
-                                            Đang hiển thị...
+                                            Đang tải...
                                         </td>
                                     </tr>
                                 ) : menu.length === 0 ? (
@@ -497,16 +514,26 @@ export default function MaterialListPage() {
                                             <td className="py-3 px-4">
                                                 {item.image && (
                                                     <div className="w-[100px] h-[100px] border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center overflow-hidden relative">
-                                                        <Image
-                                                            src={item.image}
-                                                            alt={item.name}
-                                                            fill
-                                                            className="object-cover"
-                                                        />
+                                                        {item.image.startsWith('data:') || item.image.startsWith('blob:') ? (
+                                                            <img
+                                                                src={item.image}
+                                                                alt={item.name}
+                                                                className="w-full h-full object-cover"
+                                                            />
+                                                        ) : (
+                                                            <Image
+                                                                src={item.image}
+                                                                alt={item.name}
+                                                                fill
+                                                                className="object-cover"
+                                                                sizes="100px"
+                                                                unoptimized={true}
+                                                            />
+                                                        )}
                                                     </div>
                                                 )}
                                             </td>
-                                            <td className="py-3 px-4">{item.isPromotion ? 'Yes' : 'No'}</td>
+                                            <td className="py-3 px-4">{item.isPromotion ? 'Có' : 'Không'}</td>
                                             <td className="py-3 px-4">
                                                 {item.promotionEnd?.split('T')[0] || '-'}
                                             </td>
